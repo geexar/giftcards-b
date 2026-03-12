@@ -1,0 +1,10 @@
+includes:
+    - vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    paths:
+        - app
+    level: 0
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Some specific error you want to ignore#'

@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+
+class StaticPage extends Model
+{
+    use HasTranslations;
+
+    protected $fillable = [
+        'slug',
+        'name',
+        'body',
+    ];
+
+    public array $translatable = [
+        'name',
+        'body'
+    ];
+}
