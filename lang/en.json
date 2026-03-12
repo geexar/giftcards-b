@@ -1,0 +1,16 @@
+{
+    "too many attempts: retry after :time minutes": "Too many attempts: retry after :time minutes",
+    "retry after :time seconds": "retry after :time seconds",
+    "too many attempts: retry after :time seconds": "Too many attempts: retry after :time seconds",
+    "The max size for :attribute is :size": "The max size for :attribute is :size",
+    "limit reached: retry after :time hours": "limit reached: retry after :time hours",
+    "limit reached: retry after :time minutes": "limit reached: retry after :time minutes",
+    "main_category": "main category",
+    "sub_category": "sub category",
+    "grouped_notification": "grouped notification",
+    "grouped_notifications": "grouped notifications",
+     ":count hour": "{1}:count hour|[2,*]:count hours",
+    ":count minute": "{1}:count minute|[2,*]:count minutes",
+    "and": "and",
+    "0 minutes": "0 minutes"
+}
