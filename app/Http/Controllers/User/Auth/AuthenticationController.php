@@ -31,8 +31,10 @@ class AuthenticationController extends Controller
 
     public function login(LoginRequest $request)
     {
+        $email = strtolower($request->email);
+
         // 1. Get user
-        $user = $this->userRepository->getByEmail($request->email);
+        $user = $this->userRepository->getByEmail($email);
 
         if (! $user) {
             throw new NotFoundHttpException(__('user not found'));

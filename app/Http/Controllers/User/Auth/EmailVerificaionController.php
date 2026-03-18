@@ -43,13 +43,13 @@ class EmailVerificaionController extends Controller
      */
     public function sendVerificationCode(SendOtpRequest $request)
     {
-        $user = $this->userRepository->getByEmail($request->email);
+        $email = strtolower($request->email);
+
+        $user = $this->userRepository->getByEmail($email);
 
         if ($user) {
             throw new BadRequestHttpException(__('email already verified'));
         }
-
-        $email = $request->email;
 
         $key = "send-email-verify:{$email}";
         $cooldownKey = "email-verify-cooldown:{$email}";
@@ -94,6 +94,7 @@ class EmailVerificaionController extends Controller
     public function sendUpdateEmailVerificationCode(SendUpdateEmailOtpRequest $request)
     {
         $authUser = auth('user')->user();
+        $email = strtolower($request->email);
 
         // password rate limit
         $passwordKey = "email-verify-password:{$authUser->id}";
@@ -117,13 +118,11 @@ class EmailVerificaionController extends Controller
         RateLimiter::clear($passwordKey);
 
         // email already used
-        $userWithEmail = $this->userRepository->getByEmail($request->email);
+        $userWithEmail = $this->userRepository->getByEmail($email);
         if ($userWithEmail) {
             $errorMessage = $userWithEmail->id == $authUser->id ? __('email already verified') : __('email already used');
             throw new BadRequestHttpException($errorMessage);
         }
-
-        $email = $request->email;
 
         $key = "send-email-verify:{$email}-{$authUser->id}";
         $cooldownKey = "email-verify-cooldown:{$email}-{$authUser->id}";
@@ -174,13 +173,13 @@ class EmailVerificaionController extends Controller
      */
     public function allowedToSendVerificationCode(SendOtpRequest $request)
     {
-        $user = $this->userRepository->getByEmail($request->email);
+        $email = strtolower($request->email);
+
+        $user = $this->userRepository->getByEmail($email);
 
         if ($user) {
             throw new BadRequestHttpException(__('email already verified'));
         }
-
-        $email = $request->email;
 
         $key = "send-email-verify:{$email}";
         $cooldownKey = "email-verify-cooldown:{$email}";
@@ -198,13 +197,13 @@ class EmailVerificaionController extends Controller
      */
     public function verify(ConfirmOtpRequest $request)
     {
-        $user = $this->userRepository->getByEmail($request->email);
+        $email = strtolower($request->email);
+
+        $user = $this->userRepository->getByEmail($email);
 
         if ($user) {
             throw new BadRequestHttpException(__('email already verified'));
         }
-
-        $email = $request->email;
 
         $key = "verify-email:{$email}";
 

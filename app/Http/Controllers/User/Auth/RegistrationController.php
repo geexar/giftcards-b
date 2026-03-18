@@ -31,11 +31,13 @@ class RegistrationController extends Controller
 
     public function store(RegistrationRequest $request)
     {
+        $email = strtolower($request->email);
+
         // 1. Rate limit check
-        $this->throttleRegistrationAttempt($request->email);
+        $this->throttleRegistrationAttempt($email);
 
         // 2. Verify OTP
-        $this->verifyOtpOrFail($request->email, $request->otp);
+        $this->verifyOtpOrFail($email, $request->otp);
 
         // 3. Prepare data for user creation
         $data = $request->validated();
@@ -44,6 +46,7 @@ class RegistrationController extends Controller
             $data['phone'] = normalizePhoneNumber($request->phone);
         }
 
+        $data['email']      = $email;
         $data['app_locale'] = app()->getLocale();
         $data['uuid']       = $this->userService->generateUuid();
 

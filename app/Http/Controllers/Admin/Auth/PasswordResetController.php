@@ -43,7 +43,9 @@ class PasswordResetController extends Controller
 
     public function sendResetCode(SendOtpRequest $request)
     {
-        $admin = $this->adminRepository->getByEmail($request->email);
+        $email = strtolower($request->email);
+
+        $admin = $this->adminRepository->getByEmail($email);
 
         if (! $admin) {
             throw new NotFoundHttpException(__('user not found'));
@@ -88,7 +90,9 @@ class PasswordResetController extends Controller
 
     public function allowedToSendResetCode(SendOtpRequest $request)
     {
-        $admin = $this->adminRepository->getByEmail($request->email);
+        $email = strtolower($request->email);
+
+        $admin = $this->adminRepository->getByEmail($email);
 
         if (! $admin) {
             throw new NotFoundHttpException('user not found');
@@ -107,7 +111,9 @@ class PasswordResetController extends Controller
 
     public function confirmResetCode(ConfirmOtpRequest $request)
     {
-        $admin = $this->adminRepository->getByEmail($request->email);
+        $email = strtolower($request->email);
+
+        $admin = $this->adminRepository->getByEmail($email);
 
         if (! $admin) {
             throw new NotFoundHttpException('user not found');
@@ -138,7 +144,9 @@ class PasswordResetController extends Controller
 
     public function resetPassword(ResetPasswordRequest $request)
     {
-        $admin = $this->adminRepository->getByEmail($request->email);
+        $email = strtolower($request->email);
+
+        $admin = $this->adminRepository->getByEmail($email);
 
         if (! $admin) {
             throw new NotFoundHttpException('user not found');
